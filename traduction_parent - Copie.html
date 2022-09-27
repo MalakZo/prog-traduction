@@ -1,0 +1,152 @@
+<html>
+<body style="background-color : #eacdf3;"> 
+    <h1 align="center"> Test Parental !</h1>
+    <p id="p1"></p> 
+    <input type="radio" name="niveau" value="10" id="1"> 
+    <label for="1" style="color:#06CC38" id="lb1"><font size="5">facile:10 mots => 15 chances</font></label> 
+    <input type="radio" name="niveau" value="15" id="2"> 
+    <label for="2" style="color:#858b27" id="lb2"><font size="5">moyen: 15 mots => 17 chances</font></label>
+    <input type="radio" name="niveau" value="20" id="3"> 
+    <label for="3" style="color:#f16a6a" id="lb3"><font size="5">difficile: 20mots =>20 chances</font></label> 
+    <input type="button" value="choisir" id="btn">  <br>
+    <input type="button" value="jouer" id="jouer"> <br>
+    <p id="txt"><b>Saisir la TRADUCTION</b></p> 
+    <input type="text" name="essaie" id="essaie" size="30"> <br>    
+    <input type="button" id="verif" value="verifier"> 
+<script>  
+let texte=document.getElementById("txt");
+texte.hidden = true; 
+
+let essai=document.getElementById("essaie"); 
+essai.hidden=true; 
+
+let verif=document.getElementById("verif"); 
+verif.hidden=true;
+
+let niveau=document.getElementsByName("niveau"); 
+
+let btn=document.getElementById("btn"); 
+btn.addEventListener("click",remplir); 
+let btn_jouer=document.getElementById("jouer"); 
+btn_jouer.addEventListener("click",commencer);
+
+btn_jouer.hidden=true; 
+let lb1=document.getElementById("lb1");
+let lb2=document.getElementById("lb2");
+let lb3=document.getElementById("lb3");
+
+let mots= new Array(); 
+let traduction= new Array(); 
+let ajout_mot="";
+let ajout_traduction=""; 
+let x=0; 
+let restantes;
+function remplir(){  
+btn.hidden=true; 
+lb1.hidden=true;
+lb2.hidden=true;
+lb3.hidden=true;
+for(let j=0 ;j<3;j++){
+    if (niveau[j].checked==true){
+         x=Number(niveau[j].value);
+    } 
+    niveau[j].hidden=true;
+} 
+
+for (let i=0 ; i<x; i++){ 
+    ajout_mot=prompt("mot num:"+i);  
+    mots.push(ajout_mot); 
+    ajout_traduction=prompt('traduction num :'+i);
+    traduction.push(ajout_traduction);
+    // création du radio
+    let radiobox = document.createElement('input');
+    radiobox.type = 'radio';
+    radiobox.id = 'mot'+i;
+    radiobox.name='mot';
+    radiobox.value = '';
+    // création du label
+    let label = document.createElement('label')
+    label.htmlFor = 'mot'+i;  
+    let description = document.createTextNode(mots[i]);
+    label.appendChild(description);
+    // ajout saut ligne
+    let newline = document.createElement('br');
+    // ajout des éléments à la suite du paragraphe
+    let p1 = document.getElementById('p1');
+    p1.appendChild(radiobox);
+    p1.appendChild(label);
+    p1.appendChild(newline);
+}   
+btn_jouer.hidden=false;
+}
+ function commencer(){ 
+    btn_jouer.hidden=true;
+    texte.hidden=false;  
+    essai.hidden=false; 
+    verif.hidden=false;  
+ }
+ 
+        verif.addEventListener('click',jeu) ; 
+       
+            if(niveau[0].checked==true){
+                restantes=15; 
+            } 
+            else if(niveau[1].checked==true){
+                restantes=17;
+            } 
+            else{
+                restantes=20;
+            }
+         
+        let score=0;  
+        let mot= document.getElementsByName('mot'); 
+        function jeu(){  
+         restantes=restantes-1;  
+        for (let i = 0;i<10;i++){  
+            if (mot[i].checked==true){
+                        if(essai.value===traduction[i]){  
+                            alert("correct");
+                            mot[i].disabled=true;
+                            score=score+1;  
+                            essai.value="";
+                           
+                        } 
+                        else { 
+                            mot[i].checked=false;
+                            alert('fausse traduction');  
+                            essai.value="";
+
+                        }  
+                    } 
+                }
+                        
+
+           
+      
+        if(restantes==0){
+             confirm("vous avez perdus... voulez vous rejouer ?") 
+             if(window.confirm===true){
+                    location.reload();
+                    }
+        }  
+        
+         else if(score==10){
+            x=15-restantes;
+             confirm("vous avez gagnez! en "+x+" fois   rejouer?"); 
+             if(window.confirm===true){
+             location.reload()
+             }
+        }  
+    } 
+        
+    </script> 
+     <style>
+        .centrer {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        </style>
+    <img src="C:\Users\admin\Desktop\bloc 1\CASTAING\J.S\Seance 7\jeu traduction\images (3).jfif" class="centrer" width="400" height="350">
+  </body>
+</html>

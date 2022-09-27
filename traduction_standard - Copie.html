@@ -1,0 +1,120 @@
+<html>
+<body style="background-color : #FCF3CF;"> 
+    <h1 align="center"> Mode standard !</h1>
+    <p id="p1"></p> 
+    <input type="button" id="aide"  value="aide">
+</body >
+</html>
+<script>  
+let debutant=confirm("êtes vous débutant en anglais?");  
+let aide = document.getElementById("aide"); 
+aide.hidden=true;
+let mots= new Array('astronomie','conseils','vent','soleil','sable','geologie','gauche','maitre','pluie','mariage');
+let color= new Array('')
+for (let i=0 ; i<10; i++){
+    // création du radio
+    let radiobox = document.createElement('input');
+    radiobox.type = 'radio';
+    radiobox.id = 'mot'+i;
+    radiobox.name='mot';
+    radiobox.value = '';
+    // création du label
+    let label = document.createElement('label')
+    label.htmlFor = 'mot'+i;   
+    let description = document.createTextNode(mots[i]);
+    label.appendChild(description);
+    // ajout saut ligne
+    let newline = document.createElement('br');
+    // ajout des éléments à la suite du paragraphe
+    let p1 = document.getElementById('p1');
+    p1.appendChild(radiobox);
+    p1.appendChild(label);
+    p1.appendChild(newline);
+} 
+</script>
+        <p><b>Saisir la TRADUCTION</b></p> 
+        <input type="text" name="essaie" id="essaie" size="30"> <br>    
+        <input type="button" id="verif" value="verifier">  
+        <br><br><br> 
+       
+     <script>  
+      let traduction = Array('astronomy','pieces of advice','wind','sun','sand','geology','left','teacher','rain','wedding');
+     if(debutant==true){ 
+     aide.hidden=false; 
+    } 
+      aide.addEventListener("click",aider); 
+      function aider(){ 
+          let check=0;
+          for(let z=0;z<10;z++){
+              if(mot[z].checked==true){ 
+                  check=check+1;
+                  if (z==0){
+                      alert("voici 3 mots dont l une est la traduction correcte:\n "+traduction[z+2]+" \n "+traduction[z]+" \n "+traduction[z+4]);
+                  }
+                  else if(z==9){ 
+                    alert("voici 3 mots dont l une est la traduction correcte:\n "+traduction[z-2]+" \n "+traduction[z]+" \n "+traduction[z-4]);
+                } 
+                else{
+                    alert("voici 3 mots dont l une est la traduction correcte:\n "+traduction[z-1]+" \n "+traduction[z+1]+" \n "+traduction[z]);
+                }
+              } if((check==0)&&(z==9)){
+                  alert("veuillez choisir un mot avant de demander l aide ");
+              }
+          }
+      }  
+        let verif=document.getElementById("verif"); 
+        verif.addEventListener('click',jeu) ;
+       
+        let restantes=15;   
+        let score=0;  
+        let mot= document.getElementsByName('mot'); 
+        function jeu(){  
+         let essai= document.getElementById('essaie');  
+         restantes=restantes-1;   
+         let x=document.getElementById("x");
+         let pouce=document.createElement("img");  
+         pouce.src="1pouce.jfif";  
+         pouce.width="70"; 
+         pouce.height="60";
+        for (let i = 0;i<10;i++){  
+            if (mot[i].checked==true){ 
+
+                        if(essai.value===traduction[i]){  
+                            alert("correct");
+                            mot[i].disabled=true;
+                            score=score+1;  
+                            essai.value=""; 
+                            x.appendChild(pouce);
+                        } 
+                        else { 
+                            mot[i].checked=false;
+                            alert('fausse traduction');  
+                            essai.value="";
+
+                        }  
+                    } 
+                }
+                        
+
+           
+      
+        if(restantes==0){
+             confirm("vous avez perdus... voulez vous rejouer ?") 
+             if(window.confirm===true){
+                    location.reload();
+                    }
+        }  
+        
+         else if(score==10){
+            x=15-restantes;
+             confirm("vous avez gagnez! en "+x+" fois   rejouer?"); 
+             if(window.confirm===true){
+             location.reload()
+             }
+        }  
+    } 
+        
+    </script>  
+    <p id="x"></p>
+  </body>
+</html>

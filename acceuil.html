@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>test anglais</title> 
+        <meta charset="UTF-8">  
+    
+        <body style= "background-color: #D1F2EB;">  
+           
+            <h1 align="center"><b><font size="7">Jeu d'anglais</font></b></h1> 
+                <input type="radio" id="1"><font size="5">jeu standard: 10 mots à deviner avec 15 chances !</font> <br>
+                <input type="radio" id="2"><font size="5">controle parental : les parents introduisent les mots ainsi que le niveau de difficultés</font><br> <BR><BR><br>  
+                    <style>
+                        .centrer {
+                          display: block;
+                          margin-left: auto;
+                          margin-right: auto;
+                        }
+                        </style>
+                <img src="C:\Users\admin\Desktop\bloc 1\CASTAING\J.S\Seance 7\jeu traduction\images (2).jfif" class="centrer">
+                <script>
+                    let stndr= document.getElementById("1"); 
+                    stndr.addEventListener("click",choix1) ;
+                    let cntrl= document.getElementById("2"); 
+                    cntrl.addEventListener("click",choix2); 
+                    function choix1(){
+                        document.location.href="traduction_standard.html";
+                    } 
+                    function choix2(){
+                        document.location.href="traduction_parent.html";
+                    }
+                </script>
+
+        </body>
+    </head>
+</html>
